@@ -1,0 +1,130 @@
+﻿SCHEMA FOR DECAHEX WEBSITE
+
+
+
+
+Users
+
+{
+    UserId : int
+    UserHash : char
+    UserName : string
+    UserLevel : string
+    IsSuperUser : bool
+
+}
+
+
+
+Announcements
+{
+    AnnouncementId : int
+    Date : datetime
+    Title : string
+    Message : string
+}
+
+
+
+Snippets
+{
+    SnippetId : int
+    Title : string
+    Content : string
+    Category : string
+    Platform : string
+    Date : datetime
+    Description : string
+    Styling : string
+}
+
+
+
+Downloads
+{
+    DownloadId : int
+    Title : string
+    Link : string
+    Description : string
+    Date : datetime
+    Styling : string
+}
+
+
+Projects
+{
+    ProjectId : int
+    Title : string
+    Description : string
+    Date : datetime
+    DownloadLink : string
+    GithubLink : string
+    Picture : string
+    Styling : string
+}
+
+
+Garbage
+{
+    GarbageId : int
+    Title : string
+    Description : string
+    Date : datetime
+    Picture : string
+    Styling : string
+}
+
+
+Hentai
+{
+    HentaiId : int
+    Title : string
+    Picture : string
+}
+
+
+Anime
+{
+    AnimeId : int
+    Title : string
+    Season : string
+    Year : string
+    Episodes : int
+    Rating : string
+    Description : string
+    Agrees : int
+    Disagress : int
+}
+
+
+
+GranturismoPost
+{
+    GranturismoPostId : int
+    Title : string
+    Picture : string
+    Description : string
+    Styling : string
+}
+
+
+GranturismoTune
+{
+    GranturismoTuneId : int
+    Title : string
+    Picture : string
+    Car : string
+    PP : float
+    Tires : string
+    Description : string
+    Styling : string
+    
+}
+
+
+Misc
+{
+    MiscId : int
+    Phrase : string
+    CounterPhrase : string
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./media/favicon.ico" type="image/x-icon">
+    <link rel="icon"  href="./media/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/main.css" id="theme-switch">
+    <meta name="description" content="DecaHex hentai page" />
+    <meta name="keywords" content="decahex hentai collection" />
+    <meta name="author" content="DecaHex" />
+    <script defer src="./scripts/alpine.min.js"></script>
+    <script src="./scripts/axios.min.js"></script>
+    <script src="./scripts/controller.js"></script>
+    <title>Decahex - Hentai</title>
+</head>
+<body class="background">
+    <nav class="nav">
+        <a href="./snippets.html">Snippets</a>
+        <a href="./downloads.html">Downloads</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./garbage.html">Sh*t Edgar Says</a>
+        <a href="./index.html"><img id="logo-switch" src="./media/decahexlight.png"></a>
+        <a href="./anime.html">Anime</a>
+        <a href="./granturismo.html">Gran Turismo</a>
+        <a href="./projects.html">Projects</a>
+        <a href="./Hentai.html">Hentai</a>
+    </nav>
+        <div style="min-height: 85vh;" x-data="hentais">
+        <h1 class="txt-center">Hentai! <img src="./media/WeirdChamp.png"></h1>
+        <hr />
+        <h3 class="txt-center">UUUUOOOHHHHHHHHH😭😭😭</h3>
+        <div class="hentai-grid">
+            <template x-for="Hentai in Hentais.data">
+            <div class="hentai">
+                <h3 class="txt-center" x-text="Hentai.title"></h3>
+                <hr />
+                <div class="hentai-flex">
+                <img x-bind:src="Hentai.picture" />
+                </div>
+                <div class="hentai-flex" style="margin-bottom: 20px">
+                <a x-bind:href="Hentai.picture"><button class="btn-download-green">Download</button></a>
+                </div>
+            </div>
+            </template>
+        </div>
+        </div> 
+    <footer class="footer">
+        <div>
+            <h2>DecaHex - 2022</h2>
+        </div>
+        <div>
+        <button id="theme-btn" class="btn-generic-green" onclick="themeToggle()">no light mode?</button>
+        <h2>v1.0</h2>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('hentais', () => ({
+                Hentais: [],
+
+                async init(){
+                    const currentHentai = await getHentai();
+                    this.Hentais = currentHentai;
+                }
+            }))
+        })
+
+        window.onload = (event) => {
+            const theme = document.querySelector("#theme-switch")
+            const logo = document.querySelector('#logo-switch')
+            const themeButton = document.getElementById("theme-btn")
+
+            if(localStorage.getItem("theme") == null){
+                localStorage.setItem("theme", "light")
+            }
+
+            if(localStorage.getItem("theme") == "light"){
+                theme.href = "./style/main.css"
+                logo.src = "./media/decahexlight.png"
+                themeButton.innerText = "no light mode?"
+            }else{
+                theme.href = "./style/main-dark.css"
+                logo.src = "./media/decahexdark.png"
+                themeButton.innerText = "no dark mode?"
+            }
+        }
+
+
+        function themeToggle(){
+            
+            const theme = document.querySelector("#theme-switch")
+            const logo = document.querySelector('#logo-switch')
+            const themeButton = document.getElementById("theme-btn")
+
+            if(theme.getAttribute("href") == "./style/main.css"){
+                localStorage.setItem("theme", "dark")
+                theme.href = "./style/main-dark.css"
+                logo.src = "./media/decahexdark.png"
+                themeButton.innerText = "no dark mode?"
+            }else{
+                localStorage.setItem("theme", "light")
+                theme.href = "./style/main.css"
+                logo.src = "./media/decahexlight.png"
+                themeButton.innerText = "no light mode?"
+            }
+
+        }
+    </script>
+</body>
+</html>

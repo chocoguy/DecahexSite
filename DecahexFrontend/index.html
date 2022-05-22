@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./media/favicon.ico" type="image/x-icon">
+    <link rel="icon"  href="./media/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/main.css" id="theme-switch">
+    <meta name="description" content="DecaHex" />
+    <meta name="keywords" content="decahex main page water joe" />
+    <meta name="author" content="DecaHex" />
+    <script defer src="./scripts/alpine.min.js"></script>
+    <script src="./scripts/axios.min.js"></script>
+    <script src="./scripts/controller.js"></script>
+    <script src="./scripts/indexScripts.js"></script>
+    <title>Decahex</title>
+</head>
+<body id="body-mode-toggle" class="background">
+    <nav id="nav-mode-toggle" class="nav">
+        <a href="./snippets.html">Snippets</a>
+        <a href="./downloads.html">Downloads</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./garbage.html">Sh*t Edgar Says</a>
+        <a href="./index.html"><img id="logo-switch" src="./media/decahexlight.png"></a>
+        <a href="./anime.html">Anime</a>
+        <a href="./granturismo.html">Gran Turismo</a>
+        <a href="./projects.html">Projects</a>
+        <a href="./Hentai.html">Hentai</a>
+    </nav>
+    <div x-data="announcements" style="min-height: 85vh;">
+        <p id="randquote" style="text-align: center;" x-text="currentQuote"></p>
+        <div class="home">
+
+            <div id="div-mode-toggle-1" class="home-1">
+                <h2>Welcome to DecaHex! <img src="./media/blobconfetti.gif"></h2>
+                <hr />
+                <P id="csstoggletest">Hey you found this site, NICE, look around and have fun and remember that this website is all nonsense</p>
+            </div>
+            <div id="div-mode-toggle-2" class="home-2">
+                <h2>Announcements <img src="./media/speaker.gif"></h2>
+                <hr />
+                <template x-for="Announcement in Announcements.data">
+                    <div>
+                    <ul>
+                        <li x-text="Announcement.date + '  -  ' + Announcement.message"></li>
+                    </ul>
+                    </div>
+                </template>
+            </div>
+            <div id="div-mode-toggle-3" class="home-3">
+                <h2>What is DecaHex?</h2>
+                <hr />
+                <img src="./media/satania.gif" class="profile-pic" style="margin-top: 20px;">
+                <p>Website ran by Edgar, another guy surfin the net!</p>
+                <br />
+                <p>Decahex is some name I came up with, a Decagon combined with a Hexagon</p>
+                <br />
+                <p>Website is simple and fast! no tacky frameworks here! this site runs on basic HTML/CSS/JS and Alpine.js</p>
+            </div>
+        </div>
+    </div>
+    <footer id="footer-mode-toggle-1" class="footer">
+        <div>
+            <h2>DecaHex - 2022</h2>
+        </div>
+        <div>
+        <button id="theme-btn" class="btn-generic-green" onclick="themeToggle()">no light mode?</button>
+        <h2>v1.0</h2>
+        </div>
+    </footer>
+    <script>
+        let colorMode = "";
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('announcements', () => ({
+                Announcements : [],
+                currentQuote : "",
+                
+                async init(){
+                    const currentAnnounce = await getAnnouncements();
+                    this.Announcements = currentAnnounce;
+                    this.currentQuote = "\x22" + quotesArray[Math.floor(Math.random() * Math.floor(4))] + "\x22"
+                },
+                showStuff(){
+                    console.log(this.Announcements.data[0].message);
+                    console.log(this.Announcements[0])
+                    console.log(this.Announcements)
+                    console.log(this.Announcements.data)
+                },
+                async getStuff(){
+                    return this.Announcements.data[0].message
+                }
+            }))
+        })
+
+        window.onload = (event) => {
+            const theme = document.querySelector("#theme-switch")
+            const logo = document.querySelector('#logo-switch')
+            const themeButton = document.getElementById("theme-btn")
+
+            if(localStorage.getItem("theme") == null){
+                localStorage.setItem("theme", "light")
+            }
+
+            if(localStorage.getItem("theme") == "light"){
+                theme.href = "./style/main.css"
+                logo.src = "./media/decahexlight.png"
+                themeButton.innerText = "no light mode?"
+            }else{
+                theme.href = "./style/main-dark.css"
+                logo.src = "./media/decahexdark.png"
+                themeButton.innerText = "no dark mode?"
+            }
+        }
+
+
+        async function getStuff(){
+            //console.log("dsa");
+            var announcements = await getAnnouncements()
+            return announcements
+        }
+
+        function genQuote(){
+            console.log("das");
+            const quote = quotesArray[Math.floor(Math.random() * Math.floor(4))]
+
+            console.log(quote);
+        }
+
+        function themeToggle(){
+            
+            const theme = document.querySelector("#theme-switch")
+            const logo = document.querySelector('#logo-switch')
+            const themeButton = document.getElementById("theme-btn")
+
+            if(theme.getAttribute("href") == "./style/main.css"){
+                localStorage.setItem("theme", "dark")
+                theme.href = "./style/main-dark.css"
+                logo.src = "./media/decahexdark.png"
+                themeButton.innerText = "no dark mode?"
+            }else{
+                localStorage.setItem("theme", "light")
+                theme.href = "./style/main.css"
+                logo.src = "./media/decahexlight.png"
+                themeButton.innerText = "no light mode?"
+            }
+
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./media/favicon.ico" type="image/x-icon">
+    <link rel="icon"  href="./media/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/main.css" id="theme-switch">
+    <meta name="description" content="DecaHex contact page" />
+    <meta name="keywords" content="decahex contact" />
+    <meta name="author" content="DecaHex" />
+    <title>Decahex - Contact</title>
+</head>
+<body class="background">
+    <nav class="nav">
+        <a href="./snippets.html">Snippets</a>
+        <a href="./downloads.html">Downloads</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./garbage.html">Sh*t Edgar Says</a>
+        <a href="./index.html"><img id="logo-switch" src="./media/decahexlight.png"></a>
+        <a href="./anime.html">Anime</a>
+        <a href="./granturismo.html">Gran Turismo</a>
+        <a href="./projects.html">Projects</a>
+        <a href="./Hentai.html">Hentai</a>
+    </nav>
+    <div style="height: 85vh;">
+        <h1 class="txt-center">Contact! <img src="./media/mail.gif" height="50"></h1>
+        <hr />
+        <h3 class="txt-center">Contact me if you want, I can add stuff to this site and more</h3>
+        <div class="contact txt-center" style="margin-top: 40px;">
+           <h1>Email: e.zarco7@gmail.com</h1>
+           <h1>Discord: chocoguy17#5216</h1>
+        </div>
+    </div> 
+    <footer class="footer">
+        <div>
+            <h2>DecaHex - 2022</h2>
+        </div>
+        <div>
+        <button id="theme-btn" class="btn-generic-green" onclick="themeToggle()">no light mode?</button>
+        <h2>v1.0</h2>
+        </div>
+    </footer>
+    <script>
+        window.onload = (event) => {
+            const theme = document.querySelector("#theme-switch")
+            const logo = document.querySelector('#logo-switch')
+            const themeButton = document.getElementById("theme-btn")
+
+            if(localStorage.getItem("theme") == null){
+                localStorage.setItem("theme", "light")
+            }
+
+            if(localStorage.getItem("theme") == "light"){
+                theme.href = "./style/main.css"
+                logo.src = "./media/decahexlight.png"
+                themeButton.innerText = "no light mode?"
+            }else{
+                theme.href = "./style/main-dark.css"
+                logo.src = "./media/decahexdark.png"
+                themeButton.innerText = "no dark mode?"
+            }
+        }
+
+        function themeToggle(){
+            
+            const theme = document.querySelector("#theme-switch")
+            const logo = document.querySelector('#logo-switch')
+            const themeButton = document.getElementById("theme-btn")
+
+            if(theme.getAttribute("href") == "./style/main.css"){
+                localStorage.setItem("theme", "dark")
+                theme.href = "./style/main-dark.css"
+                logo.src = "./media/decahexdark.png"
+                themeButton.innerText = "no dark mode?"
+            }else{
+                localStorage.setItem("theme", "light")
+                theme.href = "./style/main.css"
+                logo.src = "./media/decahexlight.png"
+                themeButton.innerText = "no light mode?"
+            }
+
+        }
+    </script>
+</body>
+</html>
