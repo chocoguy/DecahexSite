@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/main.css" id="theme-switch">
+    <link rel="stylesheet" href="./style/ckeditor.css">
     <meta name="description" content="DecaHex" />
     <meta name="keywords" content="decahex main page water joe" />
     <meta name="author" content="DecaHex" />
@@ -34,10 +35,24 @@
         <p id="randquote" style="text-align: center;" x-text="currentQuote"></p>
         <div class="home">
 
-            <div id="div-mode-toggle-1" class="home-1">
+            <!-- <div id="div-mode-toggle-1" class="home-1">
                 <h2>Welcome to DecaHex! <img src="./media/blobconfetti.gif"></h2>
                 <hr />
                 <P id="csstoggletest">Hey you found this site, NICE, look around and have fun and remember that this website is all nonsense</p>
+            </div> -->
+            <div id="div-mode-toggle-1" class="home-1">
+                <h2>Welcome to DecaHex! <img src="./media/blobconfetti.gif"></h2>
+                <hr />
+                <div class="centered">
+                    <div class="row row-editor">
+                        <div class="editor-container">
+                <div class="editor">
+
+                </div>
+                </div>
+                </div>
+                </div>
+                <button onclick="getEditorData()">Get Data</button>
             </div>
             <div id="div-mode-toggle-2" class="home-2">
                 <h2>Announcements <img src="./media/speaker.gif"></h2>
@@ -127,6 +142,8 @@
             const quote = quotesArray[Math.floor(Math.random() * Math.floor(4))]
 
             console.log(quote);
+
+
         }
 
         function themeToggle(){
@@ -134,6 +151,8 @@
             const theme = document.querySelector("#theme-switch")
             const logo = document.querySelector('#logo-switch')
             const themeButton = document.getElementById("theme-btn")
+
+            
 
             if(theme.getAttribute("href") == "./style/main.css"){
                 localStorage.setItem("theme", "dark")
@@ -149,7 +168,56 @@
 
         }
 
+        function getEditorData(){
+            const data = editor.getData();
+            console.log(data);
 
+ 
+            const regex = /"/gi;
+            const dataforServer = data.replace(regex, `/"`);
+            console.log(dataforServer);
+
+            const parseBack = dataforServer;
+            const regexBack = /\/"/gi;
+            const takeItBack = dataforServer.replace(regexBack, `"`)
+            console.log(takeItBack);
+
+            editor.enableReadOnlyMode('634')
+
+        }
+
+
+    </script>
+    <script src="./scripts/ckeditor.js"></script>
+    <script>ClassicEditor
+        				.create( document.querySelector( '.editor' ), {
+					
+					licenseKey: '',
+					
+					
+					
+				} )
+				.then( editor => {
+					window.editor = editor;
+
+                    const toolbarElement = window.editor.ui.view.toolbar.element;
+
+                    window.editor.on( 'change:isReadOnly', ( evt, propertyName, isReadOnly ) => {
+            if ( isReadOnly ) {
+                toolbarElement.style.display = 'none';
+            } else {
+                toolbarElement.style.display = 'flex';
+            }
+        } );
+					
+					
+				} )
+				.catch( error => {
+					console.error( 'Oops, something went wrong!' );
+					console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+					console.warn( 'Build id: ttd220yhbwa1-ptehav9rltjs' );
+					console.error( error );
+				} );
     </script>
 </body>
 </html>

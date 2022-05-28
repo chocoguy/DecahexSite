@@ -27,6 +27,7 @@ namespace DecahexBackend.Services
 
          
             var mongoClient = new MongoClient(_configuration["ConnectionString"]);
+          
             var mongoDatabase = mongoClient.GetDatabase("decahex");
 
             _animeCollection = mongoDatabase.GetCollection<Anime>("Anime");

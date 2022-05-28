@@ -41,7 +41,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: AllowOrigins, policy => { policy.WithOrigins("http://localhost:5500"); });
+    options.AddPolicy(name: AllowOrigins, policy => { policy.WithOrigins("http://localhost:5500", "http://decahex.net", "https://decahex.net"); });
 });
 
 // Add services to the container.
@@ -80,7 +80,14 @@ builder.Services.Configure<UserStoreDatabaseSettings>(
 builder.Services.AddSingleton<DbService>();
 
 
+
+
 var app = builder.Build();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions { 
+    ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
+});
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -89,13 +96,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
+
 
 app.UseCors(AllowOrigins);
 
 //app.UseAuthorization();
 
-//app.UseAuthentication();
+app.UseAuthentication();
 
 app.MapControllers();
 
